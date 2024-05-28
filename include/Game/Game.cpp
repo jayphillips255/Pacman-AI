@@ -1,8 +1,10 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "GameObject.h"
 
-SDL_Texture* playerTex;
-SDL_Rect srcR, destR;
+
+GameObject* player;
+GameObject* enemy;
 
 Game::Game()
 {}
@@ -35,7 +37,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     } else {
         isRunning = false;
     }
-    playerTex = TextureManager::loadTexture("assets/mario.png", renderer);
+    player = new GameObject("assets/mario.png", renderer, 0, 0);
+    enemy = new GameObject("assets/goomba.png", renderer, 50, 50);
 }
 
 void Game::handleEvents()
@@ -55,17 +58,15 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    cnt++;
-
-    destR.x = cnt;
-    destR.w = destR.h = 64;
-    std::cout << cnt << std::endl;
+    player->update();
+    enemy->update();
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, playerTex, NULL, &destR);
+    player->render();
+    enemy->render();
     SDL_RenderPresent(renderer);
 }
 
