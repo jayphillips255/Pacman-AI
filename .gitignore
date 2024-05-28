@@ -1,6 +1,6 @@
-
 *.dll
 *.exe
 *.so
 *.lib
 *.a
+.vscode/settings.json
