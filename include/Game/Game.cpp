@@ -1,10 +1,14 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "TileMap.h"
 
 
 GameObject* player;
 GameObject* enemy;
+TileMap* map;
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {}
@@ -37,8 +41,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     } else {
         isRunning = false;
     }
-    player = new GameObject("assets/mario.png", renderer, 0, 0);
-    enemy = new GameObject("assets/goomba.png", renderer, 50, 50);
+    player = new GameObject("assets/mario.png", 0, 0);
+    enemy = new GameObject("assets/goomba.png", 50, 50);
+    map = new TileMap();
 }
 
 void Game::handleEvents()
@@ -65,6 +70,7 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
+    map->drawMap();
     player->render();
     enemy->render();
     SDL_RenderPresent(renderer);
