@@ -6,12 +6,13 @@ You can find it here: https://www.youtube.com/watch?v=44tO977slsU&t=418s
 The tutorial serves as a guide for developing general game structure, but is not specific to Pacman
 
 ## Compiling and Running ##
-Everything has been configured to easily compile and run
+This project has been configured for Windows only.
+A different library setup is needed for other operating systems.
 Type: "make" in the terminal to compile the project. I'm using mingw64.
 Type: "make run" to run the project.
 
 ## A Note about SDL ##
-This project uses the C++ SDL2 and SDL_image third party libraries. These libraries are open source.
+This project uses SDL2 and SDL_image third party open source C libraries.
 This project comes with the libraries, so you can download them here or use the links below
 
 ## Downloading SDL ##

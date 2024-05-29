@@ -2,6 +2,8 @@
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "TileMap.h"
+#include "ECS.h"
+#include "Components.h"
 
 
 GameObject* player;
@@ -9,6 +11,9 @@ GameObject* enemy;
 TileMap* map;
 
 SDL_Renderer* Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 Game::Game()
 {}
@@ -44,6 +49,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     player = new GameObject("assets/mario.png", 0, 0);
     enemy = new GameObject("assets/goomba.png", 50, 50);
     map = new TileMap();
+    newPlayer.addComponent<PositionComponent>();
 }
 
 void Game::handleEvents()
@@ -65,6 +71,9 @@ void Game::update()
 {
     player->update();
     enemy->update();
+    manager.update();
+    std::cout << newPlayer.getComponent<PositionComponent>().x() << ", " <<
+        newPlayer.getComponent<PositionComponent>().x() << std::endl; 
 }
 
 void Game::render()
