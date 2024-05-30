@@ -1,19 +1,15 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "GameObject.h"
 #include "TileMap.h"
-#include "ECS.h"
 #include "Components.h"
 
 
-GameObject* player;
-GameObject* enemy;
 TileMap* map;
-
+Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 
-Manager manager;
-auto& newPlayer(manager.addEntity());
+
+auto& player(manager.addEntity());
 
 Game::Game()
 {}
@@ -46,10 +42,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     } else {
         isRunning = false;
     }
-    player = new GameObject("assets/mario.png", 0, 0);
-    enemy = new GameObject("assets/goomba.png", 50, 50);
     map = new TileMap();
-    newPlayer.addComponent<PositionComponent>();
+    player.addComponent<PositionComponent>();
+    player.addComponent<SpriteComponent>("assets/mario.png");
 }
 
 void Game::handleEvents()
@@ -69,19 +64,20 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    player->update();
-    enemy->update();
+    manager.refresh();
     manager.update();
-    std::cout << newPlayer.getComponent<PositionComponent>().x() << ", " <<
-        newPlayer.getComponent<PositionComponent>().x() << std::endl; 
+    if (player.getComponent<PositionComponent>().x() > 100)
+    {
+        player.getComponent<SpriteComponent>().setTexture("assets/goomba.png");
+    }
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
     map->drawMap();
-    player->render();
-    enemy->render();
+
+    manager.draw();
     SDL_RenderPresent(renderer);
 }
 
