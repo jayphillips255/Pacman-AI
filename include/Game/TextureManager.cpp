@@ -11,5 +11,5 @@ SDL_Texture* TextureManager::loadTexture(const char* fileName)
 
 void TextureManager::draw(SDL_Texture* tex, SDL_Rect srcR, SDL_Rect dstR)
 {
-    SDL_RenderCopy(Game::renderer, tex, &srcR, &dstR);
+    SDL_RenderCopy(Game::renderer, tex, NULL, &dstR); // &srcR
 }
