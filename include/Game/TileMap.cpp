@@ -2,32 +2,66 @@
 #include "TextureManager.h"
 #include <fstream>
 
-TileMap::TileMap(char* path)
+TileMap::TileMap(char* path, int rows, int cols, int tileWidth)
 {
+    rows = rows;
+    cols = cols;
+    tileWidth = tileWidth;
+
     std::fstream mapFile(path);
     std::string line;
-    int i = 0;
-    while (std::getline(mapFile, line))
+    allocateArray();
+    for (int i=0; i<rows; i++)
     {
-        for (unsigned int j=0; j<line.size(); j++)
+        std::getline(mapFile, line);
+        for (int j=0; j<cols; j++)
         {
             tileArray[i][j] = line[j];
         }
-        i++;
     }
     mapFile.close();
 
-    srcR.x = srcR.y = 0;
-    srcR.w = dstR.w = 32;
-    srcR.h = dstR.h = 32;
-    dstR.x = dstR.y = 0;
+    dstR.x = 0;
+    dstR.y = 0;
+    dstR.h = 64;
+    dstR.w = 64;
 }
 
 TileMap::~TileMap()
-{}
+{
+    deallocateArray();
+}
 
 void TileMap::render()
 {
-    
+    dstR.x = dstR.y = 0;
+    int tileID;
+    for (int i=0; i<rows; i++)
+    {
+        for (int j=0; i<cols; j++)
+        {
+            tileID = tileArray[i][j];
+            SDL_RenderCopy(Game::renderer, tileTypes[tileID], NULL, &dstR);
+            dstR.x += tileWidth;
+        }
+        dstR.y += tileWidth;
+    }
 }
 
+void TileMap::allocateArray()
+{
+    tileArray = new int*[rows];
+    for (int i = 0; i < rows; ++i)
+    {
+        tileArray[i] = new int[cols]();
+    }
+}
+
+void TileMap::deallocateArray()
+{
+    for (int i=0; i<rows; ++i)
+    {
+        delete[] tileArray[i];
+    }
+    delete[] tileArray;
+}
