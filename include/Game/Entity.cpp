@@ -1,14 +1,14 @@
-#include "GameObject.h"
+#include "Entity.h"
 #include "TextureManager.h"
 
-GameObject::GameObject(const char* fileName, int x, int y)
+Entity::Entity(const char* path, int x, int y)
 {
-    objTexture = TextureManager::loadTexture(fileName);
+    objTexture = TextureManager::loadTexture(path);
     xpos = x;
     ypos = y;
 }
 
-void GameObject::update()
+void Entity::update()
 {
     xpos++;
     ypos++;
@@ -24,7 +24,7 @@ void GameObject::update()
     dstR.h = 64;
 }
 
-void GameObject::render()
+void Entity::render()
 {
     SDL_RenderCopy(Game::renderer, objTexture, NULL, &dstR);
 }

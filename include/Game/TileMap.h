@@ -1,20 +1,16 @@
 #pragma once
 #include "Game.h"
+#include <vector>
 
 class TileMap
 {
     public:
-        TileMap();
+        TileMap(char* path);
         ~TileMap();
-        void loadMap(int arr[20][25]);
-        void drawMap();
+        void render();
     private:
         SDL_Rect srcR;
         SDL_Rect dstR;
-        SDL_Texture* dirt;
-        SDL_Texture* grass;
-        SDL_Texture* water;
-
-        int map[20][25];
-
+        std::vector<SDL_Texture*> tileTypes;
+        int** tileArray;
 };
