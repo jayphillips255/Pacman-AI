@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "TileMap.h"
+#include "Entity.h"
 
 
 
@@ -8,13 +9,15 @@ TileMap* map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
+Entity myEntity("assets/mario.png", 0, 0);
+
 Game::Game()
 {}
 
 Game::~Game()
 {}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(const char* title, int width, int height, bool fullscreen)
 {
     int flags = 0;
     if (fullscreen)
@@ -24,7 +27,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout << "Subsystems Initialized!..." << std::endl;
-        window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
         if (window)
         {
             std::cout << "Window created!" << std::endl;
@@ -36,7 +39,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
             std::cout << "Renderer created!" << std::endl;
         }
         isRunning = true;
-    } else {
+    }
+    else
+    {
         isRunning = false;
     }
 
@@ -60,13 +65,13 @@ void Game::handleEvents()
 
 void Game::update()
 {
-
+    myEntity.update();
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    map->render();
+    myEntity.render();
     SDL_RenderPresent(renderer);
 }
 

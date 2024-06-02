@@ -16,14 +16,13 @@ int main(int argc, char *argv[])
     int frameTime;
 
     game = new Game();
-    game->init("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
-
+    game->init("Pacman", 800, 640, false);
     while (game->running())
     {
         frameStart = SDL_GetTicks(); // Number of ms since SDL initialization
 
         game->handleEvents();
-        game->update();
+//        game->update();
         game->render();
 
         frameTime = SDL_GetTicks() - frameStart;

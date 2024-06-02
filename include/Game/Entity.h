@@ -4,6 +4,7 @@
 class Entity
 {
     public:
+        //Entity();
         Entity(const char* path, int x, int y);
         ~Entity();
         void update();

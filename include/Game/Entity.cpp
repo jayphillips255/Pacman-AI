@@ -1,27 +1,32 @@
 #include "Entity.h"
 #include "TextureManager.h"
-
+/*
+Entity::Entity()
+{
+    const char* p = "assets/mario.png";
+    objTexture = TextureManager::loadTexture(p);
+    srcR.x = srcR.y = 500;
+    srcR.w = srcR.h = 500;
+    dstR.x = dstR.y = 0;
+    dstR.h = dstR.w = 64;
+}
+*/
 Entity::Entity(const char* path, int x, int y)
 {
     objTexture = TextureManager::loadTexture(path);
-    xpos = x;
-    ypos = y;
+    srcR.x = srcR.y = 200;
+    srcR.w = srcR.h = 200;
+    dstR.x = dstR.y = 0;
+    dstR.h = dstR.w = 0;
 }
+
+Entity::~Entity()
+{}
 
 void Entity::update()
 {
-    xpos++;
-    ypos++;
-    /*
-    srcR.h = 64;
-    srcR.w = 64;
-    srcR.x = 0;
-    srcR.y = 0;
-    */
-    dstR.x = xpos;
-    dstR.y = xpos;
-    dstR.w = 64;
-    dstR.h = 64;
+    dstR.x++;
+    dstR.y++;
 }
 
 void Entity::render()
