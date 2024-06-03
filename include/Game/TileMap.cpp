@@ -16,7 +16,6 @@ TileMap::TileMap(const char* path, int r, int c, int tw)
     for (int i=0; i<rows; i++)
     {
         std::getline(mapFile, line);
-        std::cout << line << std::endl;
         for (int j=0; j<cols; j++)
         {
             tileMap[i][j] = line[j] - '0';
@@ -39,9 +38,16 @@ TileMap::~TileMap()
 
 void TileMap::loadTextures()
 {
-    tileTypes.push_back(TextureManager::loadTexture("assets/grass.png"));
-    tileTypes.push_back(TextureManager::loadTexture("assets/dirt.png"));
-    tileTypes.push_back(TextureManager::loadTexture("assets/water.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/topLeftDouble.png"));     // 0
+    tileTypes.push_back(TextureManager::loadTexture("assets/topRightDouble.png"));    // 1
+    tileTypes.push_back(TextureManager::loadTexture("assets/bottomLeftDouble.png"));  // 2
+    tileTypes.push_back(TextureManager::loadTexture("assets/bottomRightDouble.png")); // 3
+    tileTypes.push_back(TextureManager::loadTexture("assets/topDouble.png"));         // 4
+    tileTypes.push_back(TextureManager::loadTexture("assets/rightDouble.png"));       // 5
+    tileTypes.push_back(TextureManager::loadTexture("assets/bottomDouble.png"));      // 6
+    tileTypes.push_back(TextureManager::loadTexture("assets/topDouble.png"));         // 7
+    tileTypes.push_back(TextureManager::loadTexture("assets/leftDouble.png"));        // 8
+    tileTypes.push_back(TextureManager::loadTexture("assets/blank.png"));             // 9
 }
 
 void TileMap::render()

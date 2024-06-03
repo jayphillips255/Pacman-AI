@@ -49,7 +49,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     }
     player = new Entity("assets/mario.png", 0, 0);
     enemy = new Entity("assets/goomba.png", 50, 50);
-    map = new TileMap("assets/classicGame.txt", 3, 10, 64);
+    map = new TileMap("assets/classicGame.txt", 3, 3, 32);
 }
 
 void Game::handleEvents()
