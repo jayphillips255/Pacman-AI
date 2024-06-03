@@ -5,17 +5,17 @@
 class TileMap
 {
     public:
-        TileMap(char* path, int rows, int cols, int tileWidth);
+        TileMap(const char* path, int r, int c, int tw);
         ~TileMap();
         void render();
     private:
-        void allocateArray();
-        void deallocateArray();
+        inline void loadTextures();
+        void allocateMap();
+        void deallocateMap();
         int rows;
         int cols;
-        int** tileArray;
+        int** tileMap;
         std::vector<SDL_Texture*> tileTypes;
         int tileWidth;
-        // SDL_Rect srcR;
         SDL_Rect dstR;
 };

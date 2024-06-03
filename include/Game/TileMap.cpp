@@ -2,66 +2,77 @@
 #include "TextureManager.h"
 #include <fstream>
 
-TileMap::TileMap(char* path, int rows, int cols, int tileWidth)
+
+TileMap::TileMap(const char* path, int r, int c, int tw)
 {
-    rows = rows;
-    cols = cols;
-    tileWidth = tileWidth;
+    rows = r;
+    cols = c;
+    tileWidth = tw;
 
     std::fstream mapFile(path);
     std::string line;
-    allocateArray();
+    int i = 0;
+    allocateMap();
     for (int i=0; i<rows; i++)
     {
         std::getline(mapFile, line);
+        std::cout << line << std::endl;
         for (int j=0; j<cols; j++)
         {
-            tileArray[i][j] = line[j];
+            tileMap[i][j] = line[j] - '0';
         }
     }
+
     mapFile.close();
 
+    loadTextures();
     dstR.x = 0;
     dstR.y = 0;
-    dstR.h = 64;
-    dstR.w = 64;
+    dstR.h = tw;
+    dstR.w = tw;
 }
 
 TileMap::~TileMap()
 {
-    deallocateArray();
+    deallocateMap();
+}
+
+void TileMap::loadTextures()
+{
+    tileTypes.push_back(TextureManager::loadTexture("assets/grass.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/dirt.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/water.png"));
 }
 
 void TileMap::render()
 {
-    dstR.x = dstR.y = 0;
-    int tileID;
+    dstR.y = dstR.x = 0;
     for (int i=0; i<rows; i++)
     {
-        for (int j=0; i<cols; j++)
+        dstR.x = 0;
+        for (int j=0; j<cols; j++)
         {
-            tileID = tileArray[i][j];
-            SDL_RenderCopy(Game::renderer, tileTypes[tileID], NULL, &dstR);
+            SDL_RenderCopy(Game::renderer, tileTypes[tileMap[i][j]], NULL, &dstR);
             dstR.x += tileWidth;
         }
         dstR.y += tileWidth;
     }
 }
 
-void TileMap::allocateArray()
+void TileMap::allocateMap()
 {
-    tileArray = new int*[rows];
-    for (int i = 0; i < rows; ++i)
+    tileMap = new int*[rows];
+    for (int i=0; i<rows; i++)
     {
-        tileArray[i] = new int[cols]();
+        tileMap[i] = new int[cols]();
     }
 }
 
-void TileMap::deallocateArray()
+void TileMap::deallocateMap()
 {
-    for (int i=0; i<rows; ++i)
+    for (int i=0; i<rows; i++)
     {
-        delete[] tileArray[i];
+        delete[] tileMap[i];
     }
-    delete[] tileArray;
+    delete[] tileMap;
 }

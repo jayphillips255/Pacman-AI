@@ -9,6 +9,9 @@ TileMap* map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
+Entity* player;
+Entity* enemy;
+
 Entity myEntity("assets/mario.png", 0, 0);
 
 Game::Game()
@@ -44,8 +47,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     {
         isRunning = false;
     }
-
-    // map = new TileMap();
+    player = new Entity("assets/mario.png", 0, 0);
+    enemy = new Entity("assets/goomba.png", 50, 50);
+    map = new TileMap("assets/classicGame.txt", 3, 10, 64);
 }
 
 void Game::handleEvents()
@@ -71,7 +75,9 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    myEntity.render();
+    map->render();
+    player->render();
+    enemy->render();
     SDL_RenderPresent(renderer);
 }
 
