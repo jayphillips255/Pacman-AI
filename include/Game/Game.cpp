@@ -69,7 +69,8 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    myEntity.update();
+    player->update();
+    enemy->update();
 }
 
 void Game::render()

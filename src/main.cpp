@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         frameStart = SDL_GetTicks(); // Number of ms since SDL initialization
 
         game->handleEvents();
-//        game->update();
+        game->update();
         game->render();
 
         frameTime = SDL_GetTicks() - frameStart;
