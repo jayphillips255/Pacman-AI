@@ -43,7 +43,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     }
     player = new GameObject("assets/mario.png", 0, 0);
     enemy = new GameObject("assets/goomba.png", 50, 50);
-    map = new TileMap();
+    map = new TileMap("assets/classicGame.txt", 3, 10, 64);
 }
 
 void Game::handleEvents()
@@ -70,7 +70,7 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    map->drawMap();
+    map->render();
     player->render();
     enemy->render();
     SDL_RenderPresent(renderer);

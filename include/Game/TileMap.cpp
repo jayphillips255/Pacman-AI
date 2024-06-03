@@ -1,87 +1,80 @@
 #include "TileMap.h"
 #include "TextureManager.h"
+#include <fstream>
 
 
-int lvl1[20][25] = {
-    {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-};
-
-TileMap::TileMap()
+TileMap::TileMap(const char* path, int r, int c, int tw)
 {
-    dirt = TextureManager::loadTexture("assets/dirt.png");
-    grass = TextureManager::loadTexture("assets/grass.png");
-    water = TextureManager::loadTexture("assets/water.png");
+    rows = r;
+    cols = c;
+    tileWidth = tw;
 
-    loadMap(lvl1);
-    
-    srcR.x = srcR.y = 0;
-    srcR.w = dstR.w = 32;
-    srcR.h = dstR.h = 32;
+    std::fstream mapFile(path);
+    std::string line;
+    int i = 0;
+    allocateMap();
+    for (int i=0; i<rows; i++)
+    {
+        std::getline(mapFile, line);
+        std::cout << line << std::endl;
+        for (int j=0; j<cols; j++)
+        {
+            tileMap[i][j] = line[j] - '0';
+        }
+    }
 
-    dstR.x = dstR.y = 0;
+
+ 
+    mapFile.close();
+
+    loadTextures();
+    dstR.x = 0;
+    dstR.y = 0;
+    dstR.h = tw;
+    dstR.w = tw;
 }
 
 TileMap::~TileMap()
-{}
-
-void TileMap::loadMap(int arr[20][25])
 {
-    for (int row=0; row<20; row++)
+    deallocateMap();
+}
+
+void TileMap::loadTextures()
+{
+    tileTypes.push_back(TextureManager::loadTexture("assets/grass.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/dirt.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/water.png"));
+}
+
+void TileMap::render()
+{
+    dstR.y = dstR.x = 0;
+    for (int i=0; i<rows; i++)
     {
-        for (int col=0; col<25; col++)
+        dstR.x = 0;
+        for (int j=0; j<cols; j++)
         {
-            map[row][col] = arr[row][col];
+            SDL_RenderCopy(Game::renderer, tileTypes[tileMap[i][j]], NULL, &dstR);
+            dstR.x += tileWidth;
         }
+        dstR.y += tileWidth;
     }
 }
 
-void TileMap::drawMap()
+void TileMap::allocateMap()
 {
-    int type;
-    for (int row=0; row<20; row++)
+    tileMap = new int*[rows];
+    for (int i=0; i<rows; i++)
     {
-        for (int col=0; col<25; col++)
-        {
-            type = map[row][col];
-            dstR.x = col * 32;
-            dstR.y = row * 32;
-            srcR.w = 1000;
-            srcR.h = 1000;
-            srcR.x = srcR.y = 0;
-            switch (type)
-            {
-                case 0:
-                    TextureManager::draw(water, srcR, dstR);
-                    break;
-                case 1:
-                    TextureManager::draw(grass, srcR, dstR);
-                    break;
-                case 2:
-                    TextureManager::draw(dirt, srcR, dstR);
-                    break;
-                default:
-                    break;
-            }
-        }
+        tileMap[i] = new int[cols]();
     }
 }
 
+void TileMap::deallocateMap()
+{
+    for (int i=0; i<rows; i++)
+    {
+        delete[] tileMap[i];
+    }
+    delete[] tileMap;
+}
