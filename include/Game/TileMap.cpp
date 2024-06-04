@@ -38,16 +38,35 @@ TileMap::~TileMap()
 
 void TileMap::loadTextures()
 {
-    tileTypes.push_back(TextureManager::loadTexture("assets/topLeftDouble.png"));     // 0
-    tileTypes.push_back(TextureManager::loadTexture("assets/topRightDouble.png"));    // 1
-    tileTypes.push_back(TextureManager::loadTexture("assets/bottomLeftDouble.png"));  // 2
-    tileTypes.push_back(TextureManager::loadTexture("assets/bottomRightDouble.png")); // 3
-    tileTypes.push_back(TextureManager::loadTexture("assets/topDouble.png"));         // 4
-    tileTypes.push_back(TextureManager::loadTexture("assets/rightDouble.png"));       // 5
-    tileTypes.push_back(TextureManager::loadTexture("assets/bottomDouble.png"));      // 6
-    tileTypes.push_back(TextureManager::loadTexture("assets/topDouble.png"));         // 7
-    tileTypes.push_back(TextureManager::loadTexture("assets/leftDouble.png"));        // 8
-    tileTypes.push_back(TextureManager::loadTexture("assets/blank.png"));             // 9
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile0.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile1.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile2.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile3.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile4.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile5.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile6.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile7.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile8.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tile9.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileA.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileB.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileC.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileD.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileE.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileF.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileG.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileH.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileI.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileJ.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileK.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileL.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileM.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileN.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileO.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileP.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileQ.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileR.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileS.png"));
 }
 
 void TileMap::render()
