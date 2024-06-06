@@ -67,6 +67,10 @@ void TileMap::loadTextures()
     tileTypes.push_back(TextureManager::loadTexture("assets/tileQ.png"));
     tileTypes.push_back(TextureManager::loadTexture("assets/tileR.png"));
     tileTypes.push_back(TextureManager::loadTexture("assets/tileS.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileT.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileU.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileV.png"));
+    tileTypes.push_back(TextureManager::loadTexture("assets/tileW.png"));
 }
 
 void TileMap::render()
