@@ -7,13 +7,15 @@ class Entity {
         ~Entity();
         void update();
         void render();
+        inline void updateDirection();
     private:
         float xpos;
         float ypos;
         float speed;
         SDL_Texture* objTexture;
         SDL_Rect dstR;
-        enum direction {
+        enum directionType {
             STOP, UP, DOWN, LEFT, RIGHT
         };
+        directionType direction;
 };

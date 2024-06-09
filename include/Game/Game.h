@@ -16,5 +16,6 @@ class Game {
         static SDL_Event event;
     private:
         bool isRunning;
+        int** entityMap;
         SDL_Window* window;
 };

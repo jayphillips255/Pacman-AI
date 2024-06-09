@@ -14,12 +14,28 @@ Entity::Entity(const char* path, int x, int y) {
 Entity::~Entity() {}
 
 void Entity::update() {
-    if (Game::event.key.keysym.sym == SDLK_UP) {
-        ypos -= speed;
-        dstR.y = static_cast<int>(ypos);
-    }
+    updateDirection();
     xpos += speed;
     dstR.x = static_cast<int>(xpos);
+}
+
+void Entity::updateDirection() {
+    switch (Game::event.key.keysym.sym) {
+    case SDLK_UP:
+        direction = UP;
+        break;
+    case SDLK_DOWN:
+        direction = DOWN;
+        break;
+    case SDLK_LEFT:
+        direction = LEFT;
+        break;
+    case SDLK_RIGHT:
+        direction = RIGHT;
+        break;
+    default:
+        break;
+    }
 }
 
 void Entity::render() {

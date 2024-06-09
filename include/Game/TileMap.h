@@ -2,8 +2,7 @@
 #include "Game.h"
 #include <vector>
 
-class TileMap
-{
+class TileMap {
     public:
         TileMap(const char* path, int r, int c, int tw);
         ~TileMap();

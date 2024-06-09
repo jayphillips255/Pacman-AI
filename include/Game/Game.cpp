@@ -4,6 +4,8 @@
 #include "Entity.h"
 
 
+const int tw = 24; // Tile Width
+
 SDL_Renderer* Game::renderer = nullptr;
 TileMap* map;
 Entity* player;
@@ -38,8 +40,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
     } else {
         isRunning = false;
     }
-    map = new TileMap("assets/classicGame.txt", 31, 28, 24);
-    player = new Entity("assets/pacman.png", float(24*13 + 2), float(24*22+ 14));
+    map = new TileMap("assets/classicGame.txt", 31, 28, tw);
+    player = new Entity("assets/pacman.png", float(tw*13 + tw/12), float(tw*22 + tw*7/12));
 }
 
 void Game::handleEvents() {
