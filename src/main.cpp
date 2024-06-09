@@ -15,15 +15,15 @@ int main(int argc, char *argv[])
     Uint32 frameStart; // Should be this instead of unsigned int for portability reasons
     int frameTime;
 
-    game = new Game();
-    game->init("Pacman", 672, 744, false);
-    while (game->running())
+    Game game;
+    game.init("Pacman", 672, 744, false);
+    while (game.running())
     {
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 
-        game->handleEvents();
-        game->update();
-        game->render();
+        game.handleEvents();
+        game.update();
+        game.render();
 
         frameTime = SDL_GetTicks() - frameStart; // Calculate time to produce the new frame
         if (frameDelay > frameTime)
@@ -31,6 +31,5 @@ int main(int argc, char *argv[])
             SDL_Delay(frameDelay - frameTime);
         }
     }
-    game->clean();
     return 0;
 }

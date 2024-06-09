@@ -43,7 +43,6 @@ void TileMap::loadTextures() {
     }
     path[11] = 'A';
     for (int i=0; i<m; i++) {
-        std::cout << path << std::endl;
         tileTypes.push_back(TextureManager::loadTexture(path));
         path[11]++;
     }    
@@ -51,9 +50,9 @@ void TileMap::loadTextures() {
 
 void TileMap::render() {
     dstR.y = 0;
-    for (int i=0; i<rows; i++) {
+    for (std::size_t i=0; i<rows; i++) {
         dstR.x = 0;
-        for (int j=0; j<cols; j++) {
+        for (std::size_t j=0; j<cols; j++) {
             SDL_RenderCopy(Game::renderer, tileTypes[tileMap[i][j]], NULL, &dstR);
             dstR.x += tileWidth;
         }

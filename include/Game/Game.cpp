@@ -4,19 +4,20 @@
 #include "Entity.h"
 
 
-
-TileMap* map;
-
 SDL_Renderer* Game::renderer = nullptr;
-
+//SDL_Event* Game::event = nullptr;
+TileMap* map;
 Entity* player;
-Entity* enemy;
 
-Entity myEntity("assets/mario.png", 0, 0);
 
 Game::Game() {}
 
-Game::~Game() {}
+Game::~Game() {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
+    std::cout << "Game cleaned" << std::endl;
+}
 
 void Game::init(const char* title, int width, int height, bool fullscreen) {
     int flags = 0;
@@ -38,15 +39,13 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
     } else {
         isRunning = false;
     }
-    player = new Entity("assets/mario.png", 0, 0);
-    enemy = new Entity("assets/goomba.png", 50, 50);
     map = new TileMap("assets/classicGame.txt", 31, 28, 24);
+    player = new Entity("assets/pacman.png", float(24*13 + 2), float(24*22) + 14);
 }
 
 void Game::handleEvents() {
     SDL_Event event;
     SDL_PollEvent(&event);
-
     switch(event.type) {
         case SDL_QUIT:
             isRunning = false;
@@ -54,26 +53,18 @@ void Game::handleEvents() {
         default:
             break;
     }
+
 }
 
 void Game::update() {
     player->update();
-    enemy->update();
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     map->render();
     player->render();
-    enemy->render();
     SDL_RenderPresent(renderer);
-}
-
-void Game::clean() {
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
-    SDL_Quit();
-    std::cout << "Game cleaned" << std::endl;
 }
 
 bool Game::running() {

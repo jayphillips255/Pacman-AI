@@ -1,24 +1,23 @@
 #include "Entity.h"
 #include "TextureManager.h"
 
-Entity::Entity(const char* path, int x, int y)
-{
+Entity::Entity(const char* path, int x, int y) {
     objTexture = TextureManager::loadTexture(path);
-    dstR.x = x;
-    dstR.y = y;
-    dstR.h = dstR.w = 64;
+    xpos = x;
+    ypos = y;
+    dstR.x = static_cast<int>(xpos);
+    dstR.y = static_cast<int>(ypos);
+    dstR.h = dstR.w = 48;
+    speed = 1.5;
 }
 
-Entity::~Entity()
-{}
+Entity::~Entity() {}
 
-void Entity::update()
-{
-    dstR.x++;
-    dstR.y++;
+void Entity::update() {
+    xpos += speed;
+    dstR.x = static_cast<int>(xpos);
 }
 
-void Entity::render()
-{
+void Entity::render() {
     SDL_RenderCopy(Game::renderer, objTexture, NULL, &dstR);
 }
