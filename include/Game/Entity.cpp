@@ -14,6 +14,10 @@ Entity::Entity(const char* path, int x, int y) {
 Entity::~Entity() {}
 
 void Entity::update() {
+    if (Game::event.key.keysym.sym == SDLK_UP) {
+        ypos -= speed;
+        dstR.y = static_cast<int>(ypos);
+    }
     xpos += speed;
     dstR.x = static_cast<int>(xpos);
 }

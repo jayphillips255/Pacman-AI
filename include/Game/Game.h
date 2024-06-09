@@ -13,7 +13,7 @@ class Game {
         void render();
         bool running();
         static SDL_Renderer* renderer;
-        static SDL_Event* event;
+        static SDL_Event event;
     private:
         bool isRunning;
         SDL_Window* window;

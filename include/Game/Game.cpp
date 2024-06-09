@@ -5,10 +5,9 @@
 
 
 SDL_Renderer* Game::renderer = nullptr;
-//SDL_Event* Game::event = nullptr;
 TileMap* map;
 Entity* player;
-
+SDL_Event Game::event; // Allocate memory for storing events
 
 Game::Game() {}
 
@@ -40,20 +39,15 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
         isRunning = false;
     }
     map = new TileMap("assets/classicGame.txt", 31, 28, 24);
-    player = new Entity("assets/pacman.png", float(24*13 + 2), float(24*22) + 14);
+    player = new Entity("assets/pacman.png", float(24*13 + 2), float(24*22+ 14));
 }
 
 void Game::handleEvents() {
-    SDL_Event event;
     SDL_PollEvent(&event);
-    switch(event.type) {
-        case SDL_QUIT:
-            isRunning = false;
-            break;
-        default:
-            break;
-    }
 
+    if (event.type == SDL_QUIT) {
+        isRunning = false;
+    }
 }
 
 void Game::update() {

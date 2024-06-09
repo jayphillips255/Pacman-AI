@@ -5,7 +5,7 @@
 //       It's purpose is to test the project structure and verify a successful compilation and run
 //       The video tutorial uses Visual Studio, but this project has been configured for VSCode
 
-Game* game = nullptr;
+
 
 int main(int argc, char *argv[])
 {
