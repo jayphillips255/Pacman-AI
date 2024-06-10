@@ -8,6 +8,7 @@ class Entity {
         void update();
         void render();
         inline void updateDirection();
+        inline void updatePosition();
     private:
         float xpos;
         float ypos;

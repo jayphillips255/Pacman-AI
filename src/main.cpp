@@ -7,18 +7,17 @@
 
 
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char* argv[]) {
+    const int width = 28, height = 31; // These are the height and width in number of game tiles
+    const int tw= 24; // Tile Width
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 
     Uint32 frameStart; // Should be this instead of unsigned int for portability reasons
     int frameTime;
 
-    Game game;
-    game.init("Pacman", 672, 744, false);
-    while (game.running())
-    {
+    Game game("Pacman", tw, width * tw, height * tw, false);
+    while (game.running()) {
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 
         game.handleEvents();
@@ -26,8 +25,7 @@ int main(int argc, char *argv[])
         game.render();
 
         frameTime = SDL_GetTicks() - frameStart; // Calculate time to produce the new frame
-        if (frameDelay > frameTime)
-        {
+        if (frameDelay > frameTime) {
             SDL_Delay(frameDelay - frameTime);
         }
     }

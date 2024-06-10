@@ -21,21 +21,25 @@ void Entity::update() {
 
 void Entity::updateDirection() {
     switch (Game::event.key.keysym.sym) {
-    case SDLK_UP:
-        direction = UP;
-        break;
-    case SDLK_DOWN:
-        direction = DOWN;
-        break;
-    case SDLK_LEFT:
-        direction = LEFT;
-        break;
-    case SDLK_RIGHT:
-        direction = RIGHT;
-        break;
-    default:
-        break;
+        case SDLK_UP:
+            direction = UP;
+            break;
+        case SDLK_DOWN:
+            direction = DOWN;
+            break;
+        case SDLK_LEFT:
+            direction = LEFT;
+            break;
+        case SDLK_RIGHT:
+            direction = RIGHT;
+            break;
+        default:
+            break;
     }
+}
+
+void Entity::updatePosition() {
+    
 }
 
 void Entity::render() {

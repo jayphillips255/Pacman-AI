@@ -3,8 +3,9 @@
 #include <fstream>
 
 
-TileMap::TileMap(const char* path, int r, int c, int tw)
-{
+TileMap::TileMap() {}
+
+TileMap::TileMap(const char* path, int r, int c, int tw) {
     rows = r;
     cols = c;
     tileWidth = tw;

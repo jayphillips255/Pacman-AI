@@ -2,12 +2,13 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "TileMap.h"
+
 
 class Game {
     public:
-        Game();
+        Game(const char* title, const int tw, int width, int height, bool fullscreen);
         ~Game();
-        void init(const char* title, int width, int height, bool fullscreen);
         void handleEvents();
         void update();
         void render();
@@ -16,6 +17,6 @@ class Game {
         static SDL_Event event;
     private:
         bool isRunning;
-        int** entityMap;
+        TileMap* map;
         SDL_Window* window;
 };

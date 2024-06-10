@@ -1,9 +1,12 @@
 #pragma once
-#include "Game.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <vector>
+
 
 class TileMap {
     public:
+        TileMap();
         TileMap(const char* path, int r, int c, int tw);
         ~TileMap();
         void render();
