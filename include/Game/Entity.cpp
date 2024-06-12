@@ -1,22 +1,24 @@
 #include "Entity.h"
 #include "TextureManager.h"
 
-Entity::Entity(const char* path, int x, int y) {
+
+Entity::~Entity() {}
+
+Entity::Entity(const char* path, float x, float y, int height, int width) {
     objTexture = TextureManager::loadTexture(path);
     xpos = x;
     ypos = y;
     dstR.x = static_cast<int>(xpos);
     dstR.y = static_cast<int>(ypos);
-    dstR.h = dstR.w = 48;
+    dstR.h = height;
+    dstR.w = width;
     speed = 1.5;
 }
 
-Entity::~Entity() {}
-
 void Entity::update() {
-    updateDirection();
-    xpos += speed;
-    dstR.x = static_cast<int>(xpos);
+    //updateDirection();
+    //xpos += speed;
+    //dstR.x = static_cast<int>(xpos);
 }
 
 void Entity::updateDirection() {

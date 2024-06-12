@@ -4,6 +4,7 @@
 
 
 SDL_Renderer* Game::renderer = nullptr;
+Entity* background;
 Entity* player;
 SDL_Event Game::event; // Allocate memory for storing events
 
@@ -27,14 +28,13 @@ Game::Game(const char* title, const int tw, int width, int height, bool fullscre
     } else {
         isRunning = false;
     }
-    // map must be dynamically allocated since we want to load different sized maps in the future
-    map = new TileMap("assets/classicGame.txt", 31, 28, tw);
-    player = new Entity("assets/pacman.png", float(tw*13 + tw/12), float(tw*22 + tw*7/12));
+    background = new Entity("assets/background.png", 0, 0, tw*32, tw*28);
+    player = new Entity("assets/pacman.png", tw*13 + tw/12, tw*23 + tw*7/12, tw*2, tw*2);
 }
 
 Game::~Game() {
     delete player;
-    delete map;
+    delete background;
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
@@ -55,7 +55,7 @@ void Game::update() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    map->render();
+    background->render();
     player->render();
     SDL_RenderPresent(renderer);
 }
