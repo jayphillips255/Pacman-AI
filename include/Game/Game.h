@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "TileMap.h"
+#include "EntityMap.h"
 
 
 class Game {
@@ -17,6 +17,6 @@ class Game {
         static SDL_Event event;
     private:
         bool isRunning;
-        TileMap* map;
+        EntityMap* map;
         SDL_Window* window;
 };
