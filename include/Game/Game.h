@@ -14,9 +14,9 @@ class Game {
         void render();
         bool running();
         static SDL_Renderer* renderer;
+        static EntityMap* map;
         static SDL_Event event;
     private:
         bool isRunning;
-        EntityMap* map;
         SDL_Window* window;
 };

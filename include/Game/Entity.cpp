@@ -16,12 +16,12 @@ Entity::Entity(const char* path, float x, float y, int height, int width) {
 }
 
 void Entity::update() {
-    //updateDirection();
-    //xpos += speed;
-    //dstR.x = static_cast<int>(xpos);
+    updatePosition();
+    xpos += speed;
+    dstR.x = static_cast<int>(xpos);
 }
 
-void Entity::updateDirection() {
+inline void Entity::updatePosition() {
     switch (Game::event.key.keysym.sym) {
         case SDLK_UP:
             direction = UP;
@@ -36,13 +36,42 @@ void Entity::updateDirection() {
             direction = RIGHT;
             break;
         default:
+            // Direction is same as before
             break;
+    }
+    if (!wallColission() || direction != STOP) {
+        // Advance in the direction
     }
 }
 
-void Entity::updatePosition() {
-    
+bool Entity::wallColission() {
+    // Identify the (x,y) grid position
+    int xGridPos = static_cast<int>(xpos / Game::map->getTileWidth());
+    int yGridPos = static_cast<int>(ypos / Game::map->getTileWidth());
+    bool result = false;
+    switch (direction) {
+        case UP:
+            if (Game::map->getType(xGridPos, yGridPos - 2) == EntityMap::entityType::WALL)
+                result = true;
+            break;
+        case DOWN:
+            if (Game::map->getType(xGridPos, yGridPos + 2) == EntityMap::entityType::WALL)
+                result = true;
+            break;
+        case LEFT:
+            if (Game::map->getType(xGridPos - 2, yGridPos) == EntityMap::entityType::WALL)
+                result = true;
+            break;
+        case RIGHT:
+            if (Game::map->getType(xGridPos + 2, yGridPos) == EntityMap::entityType::WALL)
+                result = true;
+            break;
+        default:
+            break;
+    }
+    return result;
 }
+
 
 void Entity::render() {
     SDL_RenderCopy(Game::renderer, objTexture, NULL, &dstR);

@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[]) {
     const int width = 28, height = 32; // These are the height and width in number of game tiles
-    const int tw= 24; // Tile Width
+    const int tw = 24; // Tile Width
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 

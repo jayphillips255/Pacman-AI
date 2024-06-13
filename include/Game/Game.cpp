@@ -5,6 +5,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 Entity* background;
+EntityMap* Game::map;
 Entity* player;
 SDL_Event Game::event; // Allocate memory for storing events
 
@@ -30,7 +31,7 @@ Game::Game(const char* title, const int tw, int width, int height, bool fullscre
     }
     map = new EntityMap("assets/board.txt", 32, 28, tw);
     background = new Entity("assets/background.png", 0, 0, tw*32, tw*28);
-    player = new Entity("assets/pacman.png", tw*13 + tw/12, tw*23 + tw*7/12, tw*2, tw*2);
+    player = new Entity("assets/testPacman.png", tw*13 + tw/12, tw*23 + tw*6/12, tw*2, tw*2);
 }
 
 Game::~Game() {

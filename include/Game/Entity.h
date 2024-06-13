@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "EntityMap.h"
 
 class Entity {
     public:
@@ -7,8 +8,8 @@ class Entity {
         ~Entity();
         void update();
         void render();
-        inline void updateDirection();
         inline void updatePosition();
+        bool wallColission();
     private:
         int height;
         int width;

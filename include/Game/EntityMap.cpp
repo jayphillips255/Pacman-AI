@@ -3,6 +3,8 @@
 #include <fstream>
 
 
+EntityMap::
+
 EntityMap::EntityMap() {}
 
 EntityMap::EntityMap(const char* path, int r, int c, int tw) {
@@ -32,6 +34,13 @@ EntityMap::~EntityMap() {
     deallocateMap();
 }
 
+EntityMap::entityType EntityMap::getType(int x, int y) {
+    return tileMap[x][y];
+}
+
+void EntityMap::setType(int x, int y, EntityMap::entityType type) {
+    tileMap[x][y] = type;
+}
 
 void EntityMap::render() {
     dstR.y = 0;
@@ -45,6 +54,10 @@ void EntityMap::render() {
         }
         dstR.y += tileWidth;
     }
+}
+
+int EntityMap::getTileWidth() {
+    return tileWidth;
 }
 
 inline void EntityMap::allocateMap() {
