@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     Uint32 frameStart; // Should be this instead of unsigned int for portability reasons
     int frameTime;
 
-    Game game("Pacman", tw, width * tw, height * tw, false);
+    Game game("Pacman", tw, width, height, false);
     while (game.running()) {
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 

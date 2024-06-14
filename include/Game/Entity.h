@@ -9,6 +9,7 @@ class Entity {
         void update();
         void render();
         inline void updatePosition();
+        inline void updateDirection();
         bool wallColission();
     private:
         int height;

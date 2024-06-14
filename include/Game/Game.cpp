@@ -9,14 +9,14 @@ EntityMap* Game::map;
 Entity* player;
 SDL_Event Game::event; // Allocate memory for storing events
 
-Game::Game(const char* title, const int tw, int width, int height, bool fullscreen) {
+Game::Game(const char* title, const int tw, int w, int h, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "Subsystems Initialized!..." << std::endl;
-        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w * tw, h * tw, flags);
         if (window) {
             std::cout << "Window created!" << std::endl;
         }
@@ -29,6 +29,9 @@ Game::Game(const char* title, const int tw, int width, int height, bool fullscre
     } else {
         isRunning = false;
     }
+    tileWidth = tw;
+    width = w;
+    height = h;
     map = new EntityMap("assets/board.txt", 32, 28, tw);
     background = new Entity("assets/background.png", 0, 0, tw*32, tw*28);
     player = new Entity("assets/testPacman.png", tw*13 + tw/12, tw*23 + tw*6/12, tw*2, tw*2);
@@ -46,6 +49,7 @@ Game::~Game() {
 
 void Game::handleEvents() {
     // event is a static member of Game, so it can be acessed when the gamestate updates each frame
+    
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
         isRunning = false;

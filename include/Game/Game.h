@@ -7,7 +7,7 @@
 
 class Game {
     public:
-        Game(const char* title, const int tw, int width, int height, bool fullscreen);
+        Game(const char* title, const int tw, int w, int h, bool fullscreen);
         ~Game();
         void handleEvents();
         void update();
@@ -17,6 +17,9 @@ class Game {
         static EntityMap* map;
         static SDL_Event event;
     private:
+        int width;
+        int height;
+        int tileWidth;
         bool isRunning;
         SDL_Window* window;
 };
