@@ -4,12 +4,23 @@
 
 
 SDL_Renderer* Game::renderer = nullptr;
-Entity* background;
-EntityMap* Game::map;
-Entity* player;
-SDL_Event Game::event; // Allocate memory for storing events
+SDL_Event Game::event; // Static member for updating the game state
 
 Game::Game(const char* title, const int tw, int w, int h, bool fullscreen) {
+    startSDL(title, tw, w, h, fullscreen);
+    tileWidth = tw;
+    width = w;
+    height = h;
+}
+
+Game::~Game() {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
+    std::cout << "Game cleaned" << std::endl;
+}
+
+inline void Game::startSDL(const char* title, const int tw, int w, int h, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -29,27 +40,10 @@ Game::Game(const char* title, const int tw, int w, int h, bool fullscreen) {
     } else {
         isRunning = false;
     }
-    tileWidth = tw;
-    width = w;
-    height = h;
-    map = new EntityMap("assets/board.txt", 32, 28, tw);
-    background = new Entity("assets/background.png", 0, 0, tw*32, tw*28);
-    player = new Entity("assets/testPacman.png", tw*13 + tw/12, tw*23 + tw*6/12, tw*2, tw*2);
-}
-
-Game::~Game() {
-    delete player;
-    delete background;
-    delete map;
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
-    SDL_Quit();
-    std::cout << "Game cleaned" << std::endl;
 }
 
 void Game::handleEvents() {
     // event is a static member of Game, so it can be acessed when the gamestate updates each frame
-    
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
         isRunning = false;
@@ -57,17 +51,18 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    player->update();
+
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    background->render();
-    map->render();
-    player->render();
     SDL_RenderPresent(renderer);
 }
 
 bool Game::running() {
     return isRunning;
+}
+
+void Game::addEntity() {
+    
 }
