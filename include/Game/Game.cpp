@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "TileTypes.h"
 #include "Entity.h"
 
 
@@ -63,6 +64,21 @@ bool Game::running() {
     return isRunning;
 }
 
-void Game::addEntity() {
+void Game::loadMap(const char* mapFile) {
+    std::string line;
+    std::ifstream fileBridge;
+    fileBridge.open(mapFile);
+    while (std::getline(fileBridge, line)) {
+        for (std::size_t i = 0; i < line.size(); i++) {
+            addEntity(line[i]);
+        }
+    }
+}
+
+void Game::addEntity(Entity* e) {
+    
+}
+
+void Game::addEntity(char &c) {
     
 }

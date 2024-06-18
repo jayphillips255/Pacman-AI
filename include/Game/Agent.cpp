@@ -1,5 +1,8 @@
 #include "Agent.h"
 
+
+Agent::Agent() {};
+
 Agent::Agent(const char* path, float s, float x, float y, float h, float w)
     : Entity(path, x, y, h, w) {
         speed = s;

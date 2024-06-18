@@ -13,10 +13,10 @@ int main(int argc, char* argv[]) {
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 
-    Uint32 frameStart; // Should be this instead of unsigned int for portability reasons
-    int frameTime;
+    Uint32 frameStart, frameTime;
 
     Game game("Pacman", tw, width, height, false);
+    game.loadMap("assets/board.txt");
     while (game.running()) {
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 

@@ -1,12 +1,14 @@
 #pragma once
-#include "Game.h"
+#include <map>
+#include <iostream>
 
 
 class TileTypes {
-    private:
-        enum class tile {
-            EMPTY, FOOD, PELLET, DOOR, WALL
+    public:
+        enum tile {
+            EMPTY = 0, FOOD, CAPSULE, DOOR, WALL, PACMAN, INKY, PINKY, BLINKY, CLYDE
         };
+    private:
         struct tileInfo {
             std::string fileName;
             tile tt;
