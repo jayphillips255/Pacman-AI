@@ -3,12 +3,14 @@
 
 Agent::Agent() {};
 
-Agent::Agent(const char* path, float s, float x, float y, float h, float w)
-    : Entity(path, x, y, h, w) {
-        speed = s;
-}
+Agent::Agent(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w)
+    : Entity(sType, path, x, y, h, w) {}
 
 Agent::~Agent() {}
+
+void Agent::setSpeed(float s) {
+    speed = s;
+}
 
 bool Agent::atIntersection() {
     return true; // Needs implementation
