@@ -5,7 +5,7 @@
 class Item : public Entity {
     public:
         Item();
-        Item(const char* path, float x, float y, float h, float w);
+        Item(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w);
         ~Item();
         void update() override;
 };

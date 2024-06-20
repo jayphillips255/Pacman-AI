@@ -5,9 +5,8 @@
 class Player : public Agent {
     public:
         Player();
-        Player(const char* path, float s, float x, float y, float h, float w);
+        Player(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w);
         ~Player();
         void update() override;
-    private:
-        
+    private:    
 };

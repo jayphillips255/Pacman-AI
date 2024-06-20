@@ -3,8 +3,8 @@
 
 Player::Player() {}
 
-Player::Player(const char* path, float s, float x, float y, float h, float w)
-    : Agent(path, s, x, y, h, w) {}
+Player::Player(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w)
+    : Agent(sType, path, x, y, h, w) {}
 
 Player::~Player() {}
 

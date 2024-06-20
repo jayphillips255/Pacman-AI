@@ -4,7 +4,8 @@
 
 Entity::Entity() {}
 
-Entity::Entity(const char* path, float x, float y, float h, float w) {
+Entity::Entity(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w) {
+    specificType = sType;
     tex = TextureManager::loadTexture(path);
     xpos = x;
     ypos = y;
@@ -15,8 +16,6 @@ Entity::Entity(const char* path, float x, float y, float h, float w) {
     dstR.h = static_cast<int>(height);
     dstR.w = static_cast<int>(width);
 }
-
-Entity::~Entity() {}
 
 void Entity::render() {
     SDL_RenderCopy(Game::renderer, tex, NULL, &dstR);
