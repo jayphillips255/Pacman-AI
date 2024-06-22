@@ -1,17 +1,18 @@
+#include <iostream>
+#include <fstream>
 #include "Game.h"
-#include "TextureManager.h"
-#include "TileTypes.h"
-#include "Entity.h"
 
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event; // Static member for updating the game state
 
 Game::Game(const char* title, const float tw, int w, int h, bool fullscreen) {
-    startSDL(title, tw, w, h, fullscreen);
     tileWidth = tw;
     width = w;
     height = h;
+    entityManager = EntityManager();
+    startSDL(title, tw, w, h, fullscreen);
+    loadMap("assets/board.txt");
 }
 
 Game::~Game() {
@@ -34,7 +35,7 @@ inline void Game::startSDL(const char* title, const int tw, int w, int h, bool f
         }
         renderer = SDL_CreateRenderer(window, -1, 0);
         if (renderer) {
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL_SetRenderDrawColor(renderer, 0,0,0,0);
             std::cout << "Renderer created!" << std::endl;
         }
         isRunning = true;
@@ -57,6 +58,7 @@ void Game::update() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
+    entityManager.renderEntities();
     SDL_RenderPresent(renderer);
 }
 
@@ -65,7 +67,8 @@ bool Game::running() {
 }
 
 void Game::loadMap(const char* mapFile) {
-    float x, y = 0.0;
+    float x = 0.0;
+    float y = 0.0;
     std::string line;
     std::ifstream fileBridge;
     fileBridge.open(mapFile);

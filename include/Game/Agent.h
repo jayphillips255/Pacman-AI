@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 
+
 class Agent : public Entity {
     public:
         Agent();

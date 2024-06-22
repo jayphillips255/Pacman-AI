@@ -8,7 +8,7 @@
 
 
 int main(int argc, char* argv[]) {
-    const int width = 28, height = 32; // These are the height and width in number of game tiles
+    const int width = 28, height = 31; // These are the height and width in number of game tiles
     const int tw = 24; // Tile Width
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
@@ -16,7 +16,6 @@ int main(int argc, char* argv[]) {
     Uint32 frameStart, frameTime;
 
     Game game("Pacman", tw, width, height, false);
-    game.loadMap("assets/board.txt");
     while (game.running()) {
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 

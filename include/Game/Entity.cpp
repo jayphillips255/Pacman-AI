@@ -1,8 +1,11 @@
 #include "Entity.h"
 #include "TextureManager.h"
+#include <iostream>
 
 
 Entity::Entity() {}
+
+Entity::~Entity() {}
 
 Entity::Entity(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w) {
     specificType = sType;

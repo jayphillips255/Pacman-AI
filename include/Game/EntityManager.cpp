@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include <iostream>
 
 
 EntityManager::EntityManager() {
@@ -24,5 +25,17 @@ void EntityManager::addEntity(char c, float xpos, float ypos, float height, floa
             break;
         default:
             break;
+    }
+}
+
+void EntityManager::updateEntities() {
+    for (std::size_t i = 0; i < entityIndex; i++) {
+        entities[i]->update();
+    }
+}
+
+void EntityManager::renderEntities() {
+    for (std::size_t i = 0; i < entityIndex; i++) {
+        entities[i]->render();
     }
 }
