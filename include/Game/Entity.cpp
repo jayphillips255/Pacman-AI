@@ -20,6 +20,12 @@ Entity::Entity(EntityTypes::specificType sType, const char* path, float x, float
     dstR.w = static_cast<int>(width);
 }
 
+bool Entity::AABB(Entity &e1, Entity &e2) {
+    bool horizontalOverlap = (e1.xpos + e1.width) < e2.xpos || e1.xpos > (e2.xpos + e2.width);
+    bool verticalOverlap = (e1.ypos + e1.height) < e2.ypos || e2.ypos > (e2.ypos + e2.height);
+    return horizontalOverlap && verticalOverlap;
+}
+
 void Entity::render() {
     SDL_RenderCopy(Game::renderer, tex, NULL, &dstR);
 }

@@ -53,7 +53,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-
+    entityManager.updateEntities();
 }
 
 void Game::render() {

@@ -2,6 +2,8 @@
 #include "Entity.h"
 
 
+constexpr int MAX_NEARBY = 10;
+
 class Agent : public Entity {
     public:
         Agent();
@@ -9,11 +11,13 @@ class Agent : public Entity {
         virtual ~Agent() override = 0;
         virtual void update() override = 0;
         void setSpeed(float s);
+        bool wallCollision();
         bool atIntersection();
-    private:
+    protected:
+        float speed;
         enum class Direction {
             UP, DOWN, LEFT, RIGHT
         };
         Direction direction;
-        float speed;
+        Entity* nearbyEntities[MAX_NEARBY];
 };

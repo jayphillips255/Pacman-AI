@@ -21,7 +21,7 @@ KDDDDG.HG HDDLKDDG HG.HDDDDL
 C............AC............A
 C.EBBF.EBBBF.AC.EBBBF.EBBF.A
 C.HDLC.HDDDG.HG.HDDDG.AKDG.A
-C@..AC.......  .......AC..@A
+C@..AC.......0 .......AC..@A
 JBF.AC.EF.EBBBBBBF.EF.AC.EBI
 KDG.HG.AC.HDDLKDDG.AC.HG.HDL
 C......AC....AC....AC......A

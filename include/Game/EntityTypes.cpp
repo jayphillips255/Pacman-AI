@@ -17,7 +17,7 @@ const std::map<char, EntityTypes::entityInfo> EntityTypes::entityTypes = {
     {'J', {"assets/wallCorner5.png", specificType::WALL, generalType::ITEM}},
     {'K', {"assets/wallCorner6.png", specificType::WALL, generalType::ITEM}},
     {'L', {"assets/wallCorner7.png", specificType::WALL, generalType::ITEM}},
-    {'0', {"assets/pacman0.png", specificType::PACMAN, generalType::PLAYER}},
+    {'0', {"assets/pacman13x13.png", specificType::PACMAN, generalType::PLAYER}},
     {'1', {"assets/inky.png", specificType::INKY, generalType::GHOST}},
     {'2', {"assets/pinky.png", specificType::PINKY, generalType::GHOST}},
     {'3', {"assets/blinky.png", specificType::BLINKY, generalType::GHOST}},

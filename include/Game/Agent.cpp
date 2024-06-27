@@ -12,6 +12,10 @@ void Agent::setSpeed(float s) {
     speed = s;
 }
 
+bool Agent::wallCollision() {
+    return true; // Needs implemtation
+}
+
 bool Agent::atIntersection() {
     return true; // Needs implementation
 }

@@ -35,7 +35,8 @@ void EntityManager::updateEntities() {
 }
 
 void EntityManager::renderEntities() {
-    for (std::size_t i = 0; i < entityIndex; i++) {
-        entities[i]->render();
+    for (std::size_t i = 0; i < itemIndex; i++) {
+        items[i].render();
     }
+    pacman.render();
 }
