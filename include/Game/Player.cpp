@@ -31,6 +31,6 @@ void Player::update() {
         }
     }
     if (wallCollision()) {
-        
+        // TODO
     }
 }
