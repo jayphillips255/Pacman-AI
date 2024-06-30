@@ -26,6 +26,10 @@ bool Entity::AABB(Entity &e1, Entity &e2) {
     return horizontalOverlap && verticalOverlap;
 }
 
+inline void Entity::setSector(Sector* sec) {
+    this->currentSector = sec;
+}
+
 void Entity::render() {
     SDL_RenderCopy(Game::renderer, tex, NULL, &dstR);
 }

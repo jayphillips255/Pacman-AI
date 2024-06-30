@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "Player.h"
 #include "Ghost.h"
+#include "Sector.h"
 
 
 constexpr int MAX_ENTITIES = 1000;
