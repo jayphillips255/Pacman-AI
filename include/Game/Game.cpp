@@ -10,7 +10,7 @@ Game::Game(const char* title, const float tw, int w, int h, bool fullscreen) {
     tileWidth = tw;
     width = w;
     height = h;
-    entityManager = EntityManager();
+    entityManager = EntityManager(float(w * tw), float(h * tw));
     startSDL(title, tw, w, h, fullscreen);
     loadMap("assets/board.txt");
 }
@@ -66,12 +66,15 @@ bool Game::running() {
     return isRunning;
 }
 
-void Game::loadMap(const char* mapFile) {
+int Game::loadMap(const char* mapFile) {
     float x = 0.0;
     float y = 0.0;
     std::string line;
-    std::ifstream fileBridge;
-    fileBridge.open(mapFile);
+    std::ifstream fileBridge(mapFile);
+    if (!fileBridge) {
+        std::cerr << "Error opening file." << std::endl;
+        return 1;
+    }
     while (std::getline(fileBridge, line)) {
         x = 0.0;
         for (std::size_t i = 0; i < line.size(); i++) {
@@ -83,4 +86,5 @@ void Game::loadMap(const char* mapFile) {
         y += tileWidth;
     }
     fileBridge.close();
+    return 1;
 }

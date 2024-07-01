@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL2/SDL_image.h>
 #include "EntityTypes.h"
-#include "Sector.h"
 
 
 class Entity {
@@ -11,14 +10,12 @@ class Entity {
         virtual ~Entity() = 0;
         virtual void update() = 0;
         bool AABB(Entity& e1, Entity& e2);
-        inline void setSector(Sector* sec);
         void render();
     protected:
         EntityTypes::specificType specificType;
         float xpos;
         float ypos;
         SDL_Rect dstR;
-        Sector* currentSector;
     private:
         float height;
         float width;
