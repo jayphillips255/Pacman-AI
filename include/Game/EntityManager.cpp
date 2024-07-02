@@ -6,32 +6,35 @@ EntityManager::EntityManager() {
     entityIndex = ghostIndex = itemIndex = 0;
 }
 
-EntityManager::EntityManager(float height, float width) {
+EntityManager::EntityManager(float width, float height) {
     entityIndex = ghostIndex = itemIndex = 0;
-    this->height = height;
     this->width = width;
+    this->height = height;
+    quadTree = QuadTree(0.0f, 0.0f, width, height);
 }
 
 EntityManager::~EntityManager() {}
 
-void EntityManager::addEntity(char c, float xpos, float ypos, float height, float width) {
+void EntityManager::addEntity(char c, float xpos, float ypos, float width, float height) {
     EntityTypes::entityInfo info = EntityTypes::entityTypes.at(c);
     switch (info.gt) {
         case EntityTypes::generalType::PLAYER:
-            pacman = Player(info.st, info.fileName, xpos, ypos, height, width);
-            entities[entityIndex++] = &pacman;
+            pacman = Player(info.st, info.fileName, xpos, ypos, width, height);
+            entities[entityIndex] = &pacman;
             break;
         case EntityTypes::generalType::GHOST:
-            ghosts[ghostIndex] = Ghost(info.st, info.fileName, xpos, ypos, height, width);
-            entities[entityIndex++] = &ghosts[ghostIndex++];
+            ghosts[ghostIndex] = Ghost(info.st, info.fileName, xpos, ypos, width, height);
+            entities[entityIndex] = &ghosts[ghostIndex++];
             break;
         case EntityTypes::generalType::ITEM:
-            items[itemIndex] = Item(info.st, info.fileName, xpos, ypos, height, width);
-            entities[entityIndex++] = &items[itemIndex++];
+            items[itemIndex] = Item(info.st, info.fileName, xpos, ypos, width, height);
+            entities[entityIndex] = &items[itemIndex++];
             break;
         default:
             break;
     }
+    Entity* tempPtr = entities[entityIndex++];
+    quadTree.insertPoint(tempPtr->getX(), tempPtr->getY(), tempPtr);
 }
 
 void EntityManager::updateEntities() {

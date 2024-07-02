@@ -4,9 +4,9 @@
 
 Player::Player() {}
 
-Player::Player(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w)
-    : Agent(sType, path, x, y, h, w) {
-        speed = 1.5; // 1.5 pixels per frame
+Player::Player(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h)
+    : Agent(sType, path, x, y, w, h) {
+        speed = 1.5f; // 1.5 pixels per frame
     }
 
 Player::~Player() {}

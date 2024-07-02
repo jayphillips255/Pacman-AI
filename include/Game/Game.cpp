@@ -5,8 +5,10 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event; // Static member for updating the game state
+int Game::error;
 
 Game::Game(const char* title, const float tw, int w, int h, bool fullscreen) {
+    error = 0;
     tileWidth = tw;
     width = w;
     height = h;
@@ -66,17 +68,16 @@ bool Game::running() {
     return isRunning;
 }
 
-int Game::loadMap(const char* mapFile) {
-    float x = 0.0;
-    float y = 0.0;
+void Game::loadMap(const char* mapFile) {
+    float x = 0.0f;
+    float y = 0.0f;
     std::string line;
     std::ifstream fileBridge(mapFile);
     if (!fileBridge) {
         std::cerr << "Error opening file." << std::endl;
-        return 1;
     }
     while (std::getline(fileBridge, line)) {
-        x = 0.0;
+        x = 0.0f;
         for (std::size_t i = 0; i < line.size(); i++) {
             if (line[i] != ' ') {
                 entityManager.addEntity(line[i], x, y, tileWidth, tileWidth);
@@ -86,5 +87,4 @@ int Game::loadMap(const char* mapFile) {
         y += tileWidth;
     }
     fileBridge.close();
-    return 1;
 }

@@ -2,7 +2,8 @@
 #include <vector>
 
 
-class Entity;
+constexpr int CAPACITY = 4;
+class Entity; // Forward declare Entity
 
 struct Point {
     float x;
@@ -13,14 +14,18 @@ struct Point {
 class QuadTree {
     public:
         QuadTree();
+        QuadTree(float x, float y, float width, float height);
         ~QuadTree();
-        bool insertPoint();
+        bool insertPoint(float x, float y, Entity* entity);
     private:
         void subdivide();
-        float height;
-        float width;
-        QuadTree* northWest;
+        Point* points[CAPACITY];
+        float x;
+        float y;
+        float w;
+        float h;
         QuadTree* northEast;
-        QuadTree* southWest;
+        QuadTree* northWest;
         QuadTree* southEast;
+        QuadTree* southWest;
 };

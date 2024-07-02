@@ -13,9 +13,9 @@ constexpr int MAX_GHOSTS = 4;
 class EntityManager {
     public:
         EntityManager();
-        EntityManager(float height, float width);
+        EntityManager(float width, float height);
         ~EntityManager();
-        void addEntity(char c, float xpos, float ypos, float height, float width);
+        void addEntity(char c, float xpos, float ypos, float width, float height);
         void updateEntities();
         void renderEntities();
     private:

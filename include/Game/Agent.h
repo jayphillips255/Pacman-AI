@@ -2,12 +2,10 @@
 #include "Entity.h"
 
 
-constexpr int MAX_NEARBY = 10;
-
 class Agent : public Entity {
     public:
         Agent();
-        Agent(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w);
+        Agent(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h);
         virtual ~Agent() override = 0;
         virtual void update() override = 0;
         void setSpeed(float s);
@@ -19,5 +17,4 @@ class Agent : public Entity {
             UP, DOWN, LEFT, RIGHT
         };
         Direction direction;
-        Entity* nearbyEntities[MAX_NEARBY];
 };

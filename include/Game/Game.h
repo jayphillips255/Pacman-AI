@@ -12,9 +12,10 @@ class Game {
         void update();
         void render();
         bool running();
-        int loadMap(const char* mapFile);
+        void loadMap(const char* mapFile);
         static SDL_Renderer* renderer;
         static SDL_Event event;
+        static int error;
     private:
         int width;
         int height;

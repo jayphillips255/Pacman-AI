@@ -3,8 +3,8 @@
 
 Agent::Agent() {};
 
-Agent::Agent(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w)
-    : Entity(sType, path, x, y, h, w) {}
+Agent::Agent(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h)
+    : Entity(sType, path, x, y, w, h) {}
 
 Agent::~Agent() {}
 

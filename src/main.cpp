@@ -17,6 +17,9 @@ int main(int argc, char* argv[]) {
 
     Game game("Pacman", tw, width, height, false);
     while (game.running()) {
+        if (game.error) {
+            return 1;
+        }
         frameStart = SDL_GetTicks(); // Number of milliseconds since SDL initialization
 
         game.handleEvents();

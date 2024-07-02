@@ -6,18 +6,20 @@
 class Entity {
     public:
         Entity();
-        Entity(EntityTypes::specificType sType, const char* path, float x, float y, float h, float w);
+        Entity(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h);
         virtual ~Entity() = 0;
         virtual void update() = 0;
         bool AABB(Entity& e1, Entity& e2);
         void render();
+        float getX();
+        float getY();
     protected:
         EntityTypes::specificType specificType;
         float xpos;
         float ypos;
         SDL_Rect dstR;
     private:
-        float height;
         float width;
+        float height;
         SDL_Texture* tex;
 };
