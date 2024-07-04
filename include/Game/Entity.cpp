@@ -30,10 +30,18 @@ void Entity::render() {
     SDL_RenderCopy(Game::renderer, tex, NULL, &dstR);
 }
 
-float Entity::getX() {
+float Entity::getx() {
     return xpos;
 }
 
-float Entity::getY() {
+float Entity::gety() {
     return ypos;
+}
+
+float Entity::getw() {
+    return width;
+}
+
+float Entity::geth() {
+    return height;
 }

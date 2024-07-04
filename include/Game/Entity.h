@@ -11,8 +11,10 @@ class Entity {
         virtual void update() = 0;
         bool AABB(Entity& e1, Entity& e2);
         void render();
-        float getX();
-        float getY();
+        float getx();
+        float gety();
+        float getw();
+        float geth();
     protected:
         EntityTypes::specificType specificType;
         float xpos;

@@ -1,18 +1,40 @@
 #include "QuadTree.h"
 
 
-QuadTree::QuadTree() {}
+QuadTree::QuadTree() {
+    pointIndex = 0;
+    divided = false;
+    northWest = nullptr;
+    northEast = nullptr;
+    southWest = nullptr;
+    southEast = nullptr;
+}
 
 QuadTree::QuadTree(float x, float y, float width, float height) {
+    pointIndex = 0;
+    divided = false;
     this->x = x;
     this->y = y;
     w = width;
     h = height;
+    northWest = nullptr;
+    northEast = nullptr;
+    southWest = nullptr;
+    southEast = nullptr;
 }
 
 QuadTree::~QuadTree() {}
 
-bool QuadTree::insertPoint(float x, float y, Entity* entity) {
+bool QuadTree::outOfBounds(Entity* e) {
+    bool horizontalOverlap = (e->getx() < this->x) || (e->getx() + e->getw() > this->x + this->w);
+    bool verticalOverlap = (e->gety() < this->y) || (e->gety() + e->geth() > this->y + this->h);
+    return horizontalOverlap || verticalOverlap;
+}
+
+bool QuadTree::insertEntity(Entity* e) {
+    if (outOfBounds(e)) {
+        return false;
+    }
     return true; // Needs implementation
 }
 

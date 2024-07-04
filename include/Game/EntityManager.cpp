@@ -33,8 +33,8 @@ void EntityManager::addEntity(char c, float xpos, float ypos, float width, float
         default:
             break;
     }
-    Entity* tempPtr = entities[entityIndex++];
-    quadTree.insertPoint(tempPtr->getX(), tempPtr->getY(), tempPtr);
+    //quadTree.insertEntity(entities[entityIndex++]);
+    entityIndex++;
 }
 
 void EntityManager::updateEntities() {

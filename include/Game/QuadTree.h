@@ -1,31 +1,34 @@
 #pragma once
 #include <vector>
-
-
-constexpr int CAPACITY = 4;
-class Entity; // Forward declare Entity
+#include "Entity.h"
 
 struct Point {
     float x;
     float y;
-    Entity* entity;
+    Entity* Entity;
 };
+
+constexpr int CAPACITY = 4;
+constexpr int n = 4; // Number of vertices of a rectangle
 
 class QuadTree {
     public:
         QuadTree();
         QuadTree(float x, float y, float width, float height);
         ~QuadTree();
-        bool insertPoint(float x, float y, Entity* entity);
+        bool outOfBounds(Entity* e);
+        bool insertEntity(Entity* entity);
     private:
         void subdivide();
-        Point* points[CAPACITY];
+        Point points[CAPACITY];
+        int pointIndex;
+        bool divided;
         float x;
         float y;
         float w;
         float h;
-        QuadTree* northEast;
         QuadTree* northWest;
-        QuadTree* southEast;
+        QuadTree* northEast;
         QuadTree* southWest;
+        QuadTree* southEast;
 };

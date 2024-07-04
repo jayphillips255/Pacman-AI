@@ -4,7 +4,7 @@
 - I have plans to implement multithreading for fast, real-time decision making by Pacman's AI
 
 ## What I've done on this Project
-- All C++ and header files have been fully written by me, with the exception of TextureManager.h, TextureManager.cpp, Game.h, Game.cpp, and main.cpp. I have made slight to significant changes to the last three. The TextureManager files are unaltered.
+- All C++ and header files have been fully written by me, with the exception of TextureManager.h, TextureManager.cpp, QuadTree.h, QuadTree.cpp, Game.h, Game.cpp, and main.cpp. I have made slight to significant changes to the last five. The TextureManager files are unaltered.
 - This project uses the SDL2 and SDL_Image C libraries. I decided to watch a tutorial on YouTube for learning these libraries. All files listed above are from this tutorial. You can find it here: https://www.youtube.com/watch?v=44tO977slsU&t=418s. The tutorial serves as a guide for developing general game structure, not specific to Pacman.
 
 ## Compiling and Running
