@@ -2,6 +2,8 @@
 #include "Entity.h"
 
 
+constexpr int MAX_COLLISION = 12;
+
 class Agent : public Entity {
     public:
         Agent();
@@ -9,9 +11,11 @@ class Agent : public Entity {
         virtual ~Agent() override = 0;
         virtual void update() override = 0;
         void setSpeed(float s);
-        bool wallCollision();
-        bool atIntersection();
+        void updateCollisions(Entity* newCollision);
+        void resetCollisions();
     protected:
+        Entity* collisions[MAX_COLLISION];
+        int collisionIndex;
         float speed;
         enum class Direction {
             UP, DOWN, LEFT, RIGHT

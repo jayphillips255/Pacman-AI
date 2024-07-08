@@ -1,10 +1,15 @@
+#include <iostream>
 #include "Agent.h"
 
 
-Agent::Agent() {};
+Agent::Agent() {
+    collisionIndex = 0;
+};
 
 Agent::Agent(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h)
-    : Entity(sType, path, x, y, w, h) {}
+    : Entity(sType, path, x, y, w, h) {
+        collisionIndex = 0;
+    }
 
 Agent::~Agent() {}
 
@@ -12,10 +17,14 @@ void Agent::setSpeed(float s) {
     speed = s;
 }
 
-bool Agent::wallCollision() {
-    return true; // Needs implemtation
+void Agent::updateCollisions(Entity* newCollision) {
+    if (collisionIndex >= MAX_COLLISION) {
+        std::cout << " Error: Max collision entities exceeded." << std::endl;
+        return;
+    }
+    collisions[collisionIndex++] = newCollision;
 }
 
-bool Agent::atIntersection() {
-    return true; // Needs implementation
+void Agent::resetCollisions() {
+    collisionIndex = 0;
 }

@@ -30,7 +30,5 @@ void Player::update() {
                 break;
         }
     }
-    if (wallCollision()) {
-        // TODO
-    }
+    
 }
