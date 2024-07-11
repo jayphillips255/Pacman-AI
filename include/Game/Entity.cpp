@@ -21,9 +21,10 @@ Entity::Entity(EntityTypes::specificType sType, const char* path, float x, float
 }
 
 bool Entity::AABB(Entity* e1, Entity* e2) {
-    bool horizontalOverlap = (e1->xpos + e1->width) < e2->xpos || e1->xpos > (e2->xpos + e2->width);
-    bool verticalOverlap = (e1->ypos + e1->height) < e2->ypos || e1->ypos > (e2->ypos + e2->height);
-    return horizontalOverlap && verticalOverlap;
+    return e1->xpos < e2->xpos + e2->width  &&
+           e1->xpos + e1->width > e2->xpos  &&
+           e1->ypos < e2->ypos + e2->height &&
+           e1->ypos + e1->height > e2->ypos;
 }
 
 void Entity::render() {
@@ -44,4 +45,8 @@ float Entity::getw() {
 
 float Entity::geth() {
     return height;
+}
+
+EntityTypes::specificType Entity::getSpecificType() {
+    return specificType;
 }

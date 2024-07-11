@@ -8,6 +8,7 @@
 
 constexpr int MAX_ENTITIES = 1000;
 constexpr int MAX_ITEMS = 800;
+constexpr int MAX_AGENTS = 5;
 constexpr int MAX_GHOSTS = 4;
 
 class EntityManager {
@@ -22,10 +23,12 @@ class EntityManager {
         float height;
         float width;
         Entity* entities[MAX_ENTITIES];
-        Item items[MAX_ITEMS];
+        Agent* agents[MAX_AGENTS];
         Ghost ghosts[MAX_GHOSTS];
+        Item items[MAX_ITEMS];
         Player pacman;
         int entityIndex;
+        int agentIndex;
         int ghostIndex;
         int itemIndex;
         QuadTree quadTree;

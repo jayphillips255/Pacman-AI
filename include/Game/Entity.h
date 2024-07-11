@@ -15,6 +15,7 @@ class Entity {
         float gety();
         float getw();
         float geth();
+        EntityTypes::specificType getSpecificType();
     protected:
         EntityTypes::specificType specificType;
         float xpos;

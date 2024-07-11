@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Game.h"
 #include "Agent.h"
 
 
@@ -18,13 +19,30 @@ void Agent::setSpeed(float s) {
 }
 
 void Agent::updateCollisions(Entity* newCollision) {
-    if (collisionIndex >= MAX_COLLISION) {
+    if (collisions.size() >= MAX_COLLISION) {
         std::cout << " Error: Max collision entities exceeded." << std::endl;
         return;
     }
-    collisions[collisionIndex++] = newCollision;
+        std::cout <<"New collision" << std::endl;
+    collisions.push_back(newCollision);
 }
 
-void Agent::resetCollisions() {
-    collisionIndex = 0;
+void Agent::resolveWallCollision() {
+    switch (direction) {
+        case Direction::UP:
+            yGridPos = (ypos / Game::tileWidth) + 1;
+            break;
+        case Direction::DOWN:
+            yGridPos = (ypos / Game::tileWidth);
+            break;
+        case Direction::LEFT:
+            xGridPos = (xpos / Game::tileWidth) + 1;
+            break;
+        case Direction::RIGHT:
+            xGridPos = (xpos / Game::tileWidth);
+            break;
+    }
+    speed = 0;
+    xpos = xGridPos * Game::tileWidth;
+    ypos = yGridPos * Game::tileWidth;
 }

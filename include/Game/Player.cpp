@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Player.h"
 #include "Game.h"
 
@@ -11,7 +12,7 @@ Player::Player(EntityTypes::specificType sType, const char* path, float x, float
 
 Player::~Player() {}
 
-void Player::update() {
+void Player::updateDirection() {
     if (Game::event.type == SDL_KEYDOWN) {
         switch (Game::event.key.keysym.sym) {
             case SDLK_UP:
@@ -30,5 +31,41 @@ void Player::update() {
                 break;
         }
     }
-    
+}
+
+void Player::updatePosition() {
+    updateDirection();
+    switch (direction) {
+        case Direction::UP:
+            ypos -= speed;
+            break;
+        case Direction::DOWN:
+            ypos += speed;
+            break;
+        case Direction::LEFT:
+            xpos -= speed;
+            break;
+        case Direction::RIGHT:
+            xpos += speed;
+            break;
+        default:
+            break;
+    }
+}
+
+void Player::update() {}
+
+void Player::resolveCollisions() {
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        switch (collisions[i]->getSpecificType()) {
+            case EntityTypes::specificType::WALL:
+                resolveWallCollision();
+                break;
+            default:
+                break;
+        }
+    }
+    collisions.clear();
+    dstR.x = static_cast<int>(xpos);
+    dstR.y = static_cast<int>(ypos);
 }

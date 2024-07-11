@@ -1,8 +1,9 @@
+#include <iostream>
 #include "QuadTree.h"
 
 
 QuadTree::QuadTree() {
-    entityIndex = 0;
+    capacity = 0;
     divided = false;
     northWest = nullptr;
     northEast = nullptr;
@@ -11,7 +12,7 @@ QuadTree::QuadTree() {
 }
 
 QuadTree::QuadTree(float x, float y, float width, float height) {
-    entityIndex = 0;
+    capacity = 0;
     divided = false;
     this->x = x;
     this->y = y;
@@ -25,63 +26,59 @@ QuadTree::QuadTree(float x, float y, float width, float height) {
 
 QuadTree::~QuadTree() {}
 
-bool QuadTree::outOfBounds(Entity* e) const {
-    bool outBoundsX = (e->getx() < this->x) || (e->getx() + e->getw() > this->x + this->w);
-    bool outBoundsY = (e->gety() < this->y) || (e->gety() + e->geth() > this->y + this->h);
-    return outBoundsX || outBoundsY;
-}
-
 bool QuadTree::intersects(Entity* e) const {
-    bool horizontalOverlap = (e->getx() + e->getw()) < this->x || e->getx() > (this->x + this->w);
-    bool verticalOverlap = (e->gety() + e->geth()) < this->y || e->gety() > (this->y + this->h);
-    return horizontalOverlap && verticalOverlap;
+    return e->getx() < this->x + this->w   &&
+           e->getx() + e->getw() > this->x &&
+           e->gety() < this->y + this->h   &&
+           e->gety() + e->geth() > this->y;
 }
 
-bool QuadTree::insertEntity(Entity* e) {
-    if (outOfBounds(e)) {
+bool QuadTree::insert(Entity* e) {
+    if (!intersects(e)) {
         return false;
     }
-    if (entityIndex < CAPACITY && !divided) {
-        entities[entityIndex++] = e;
+    if ((capacity < MAX_CAPACITY) && !divided) {
+        entities.push_back(e);
+        capacity++;
         return true;
     }
     if (!divided) {
-       subdivide(); 
+       subdivide();
     }
-    if (northWest->insertEntity(e)) return true;
-    if (northEast->insertEntity(e)) return true;
-    if (southWest->insertEntity(e)) return true;
-    if (southEast->insertEntity(e)) return true;
+    if (northWest->insert(e)) return true;
+    if (northEast->insert(e)) return true;
+    if (southWest->insert(e)) return true;
+    if (southEast->insert(e)) return true;
     return false; // Should only reach this point if something went wrong
 }
 
-bool QuadTree::removeEntity(Entity* e) {
-    for (std::size_t i = 0; i < entityIndex; i++) {
+bool QuadTree::remove(Entity* e) {
+    for (std::size_t i = 0; i < capacity; i++) {
         if (entities[i] == e) {
-            this->entityIndex--;
-            return true;
+            capacity--;
+            break;
         }
     }
-    if (northWest->intersects(e)) return removeEntity(e);
-    if (northEast->intersects(e)) return removeEntity(e);
-    if (southWest->intersects(e)) return removeEntity(e);
-    if (southEast->intersects(e)) return removeEntity(e);
+    if (northWest->intersects(e)) return northWest->remove(e);
+    if (northEast->intersects(e)) return northEast->remove(e);
+    if (southWest->intersects(e)) return southWest->remove(e);
+    if (southEast->intersects(e)) return southEast->remove(e);
     return false;
 }
 
-void QuadTree::checkCollision(Agent* agent) {
-    for (std::size_t i = 0; i < this->entityIndex; i++) {
+void QuadTree::checkCollisions(Agent* agent) {
+    for (std::size_t i = 0; i < capacity; i++) {
         if (agent->AABB(agent, entities[i])) {
             agent->updateCollisions(entities[i]);
         }
     }
-    if (!this->divided) {
+    if (!divided) {
         return;
     }
-    if (northWest->intersects(agent)) checkCollision(agent);
-    if (northEast->intersects(agent)) checkCollision(agent);
-    if (southEast->intersects(agent)) checkCollision(agent);
-    if (southEast->intersects(agent)) checkCollision(agent);
+    if (northWest->intersects(agent)) northWest->checkCollisions(agent);
+    if (northEast->intersects(agent)) northEast->checkCollisions(agent);
+    if (southWest->intersects(agent)) southWest->checkCollisions(agent);
+    if (southEast->intersects(agent)) southEast->checkCollisions(agent);
 }
 
 void QuadTree::subdivide() {

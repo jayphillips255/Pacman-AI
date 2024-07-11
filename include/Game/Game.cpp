@@ -4,8 +4,9 @@
 
 
 SDL_Renderer* Game::renderer = nullptr;
-SDL_Event Game::event; // Static member for updating the game state
+SDL_Event Game::event; // For updating the game state
 int Game::error;
+float Game::tileWidth;
 
 Game::Game(const char* title, const float tw, int w, int h, bool fullscreen) {
     error = 0;

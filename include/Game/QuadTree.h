@@ -4,7 +4,8 @@
 #include "Agent.h"
 
 
-constexpr int CAPACITY = 4;
+
+constexpr int MAX_CAPACITY = 4;
 constexpr int n = 4; // Number of vertices of a rectangle
 
 class QuadTree {
@@ -12,15 +13,14 @@ class QuadTree {
         QuadTree();
         QuadTree(float x, float y, float width, float height);
         ~QuadTree();
-        bool outOfBounds(Entity* e) const;
         bool intersects(Entity* e) const;
-        bool insertEntity(Entity* entity);
-        bool removeEntity(Entity* entity);
-        void checkCollision(Agent* entity);
+        bool insert(Entity* entity);
+        bool remove(Entity* entity);
+        void checkCollisions(Agent* agent);
     private:
         void subdivide();
-        Entity* entities[CAPACITY];
-        int entityIndex;
+        std::vector<Entity*> entities;
+        int capacity;
         bool divided;
         float x;
         float y;

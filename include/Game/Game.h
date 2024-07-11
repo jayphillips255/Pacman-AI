@@ -16,10 +16,10 @@ class Game {
         static SDL_Renderer* renderer;
         static SDL_Event event;
         static int error;
+        static float tileWidth;
     private:
         int width;
         int height;
-        float tileWidth;
         bool isRunning;
         SDL_Window* window;
         EntityManager entityManager;

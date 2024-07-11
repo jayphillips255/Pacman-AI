@@ -8,4 +8,10 @@ Ghost::Ghost(EntityTypes::specificType sType, const char* path, float x, float y
 
 Ghost::~Ghost() {}
 
+void Ghost::updateDirection() {}
+
 void Ghost::update() {}
+
+void Ghost::updatePosition() {}
+
+void Ghost::resolveCollisions() {}
