@@ -48,6 +48,10 @@ void Player::updatePosition() {
         case Direction::RIGHT:
             xpos += speed;
             break;
+        case Direction::STOP:
+            xpos += 0.0f;
+            ypos += 0.0f;
+            break;
         default:
             break;
     }

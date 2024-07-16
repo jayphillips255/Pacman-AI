@@ -23,26 +23,30 @@ void Agent::updateCollisions(Entity* newCollision) {
         std::cout << " Error: Max collision entities exceeded." << std::endl;
         return;
     }
-        std::cout <<"New collision" << std::endl;
     collisions.push_back(newCollision);
+    return;
 }
 
 void Agent::resolveWallCollision() {
     switch (direction) {
         case Direction::UP:
             yGridPos = (ypos / Game::tileWidth) + 1;
+            ypos = yGridPos * Game::tileWidth;
             break;
         case Direction::DOWN:
             yGridPos = (ypos / Game::tileWidth);
+            ypos = yGridPos * Game::tileWidth;
             break;
         case Direction::LEFT:
             xGridPos = (xpos / Game::tileWidth) + 1;
+            xpos = xGridPos * Game::tileWidth;
             break;
         case Direction::RIGHT:
             xGridPos = (xpos / Game::tileWidth);
+            xpos = xGridPos * Game::tileWidth;
+            break;
+        default:
             break;
     }
-    speed = 0;
-    xpos = xGridPos * Game::tileWidth;
-    ypos = yGridPos * Game::tileWidth;
+    direction = Direction::STOP;
 }

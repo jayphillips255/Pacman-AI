@@ -28,12 +28,13 @@ void EntityManager::addEntity(char c, float xpos, float ypos, float width, float
             break;
         case EntityTypes::generalType::ITEM:
             items[itemIndex] = Item(info.st, info.fileName, xpos, ypos, width, height);
+            quadTree.insert(&(items[itemIndex])); // Only items will be in the QuadTree
             entities[entityIndex] = &items[itemIndex++];
             break;
         default:
             break;
     }
-    quadTree.insert(entities[entityIndex++]);
+    entityIndex++;
 }
 
 void EntityManager::updateEntities() {

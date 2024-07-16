@@ -5,7 +5,7 @@
 
 
 
-constexpr int MAX_CAPACITY = 4;
+constexpr int MAX_CAPACITY = 50;
 constexpr int n = 4; // Number of vertices of a rectangle
 
 class QuadTree {

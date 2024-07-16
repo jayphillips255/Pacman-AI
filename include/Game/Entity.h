@@ -20,6 +20,8 @@ class Entity {
         EntityTypes::specificType specificType;
         float xpos;
         float ypos;
+        int xGridPos;
+        int yGridPos;
         SDL_Rect dstR;
     private:
         float width;

@@ -22,10 +22,8 @@ class Agent : public Entity {
         std::vector<Entity*> collisions;
         int collisionIndex;
         float speed;
-        int xGridPos;
-        int yGridPos;
         enum class Direction {
-            UP, DOWN, LEFT, RIGHT
+            UP, DOWN, LEFT, RIGHT, STOP
         };
         Direction direction;
 };
