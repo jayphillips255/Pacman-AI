@@ -2,6 +2,7 @@
 
 
 const std::map<char, EntityTypes::entityInfo> EntityTypes::entityTypes = {
+    {' ', {"", specificType::EMPTY, generalType::EMPTY}}, // You should probably change this if you adapt this project
     {'.', {"assets/food.png", specificType::FOOD, generalType::ITEM}},
     {'@', {"assets/capsule.png", specificType::CAPSULE, generalType::ITEM}},
     {'_', {"assets/door.png", specificType::DOOR, generalType::ITEM}},

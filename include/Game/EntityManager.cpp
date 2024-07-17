@@ -1,3 +1,4 @@
+#include "CONSTANTS.h"
 #include "EntityManager.h"
 #include <iostream>
 
@@ -15,25 +16,28 @@ EntityManager::EntityManager(float width, float height) {
 
 EntityManager::~EntityManager() {}
 
-void EntityManager::addEntity(char c, float xpos, float ypos, float width, float height) {
+void EntityManager::addEntity(char c, int xGridPos, int yGridPos, float width, float height) {
     EntityTypes::entityInfo info = EntityTypes::entityTypes.at(c);
     switch (info.gt) {
         case EntityTypes::generalType::PLAYER:
-            pacman = Player(info.st, info.fileName, xpos, ypos, width, height);
+            pacman = Player(info.st, info.fileName, xGridPos * TILE_WIDTH, yGridPos * TILE_WIDTH, width, height);
             entities[entityIndex] = agents[agentIndex++] = &pacman;
             break;
         case EntityTypes::generalType::GHOST:
-            ghosts[ghostIndex] = Ghost(info.st, info.fileName, xpos, ypos, width, height);
+            ghosts[ghostIndex] = Ghost(info.st, info.fileName, xGridPos * TILE_WIDTH, yGridPos * TILE_WIDTH, width, height);
             entities[entityIndex] = agents[agentIndex++] = &ghosts[ghostIndex++];
             break;
         case EntityTypes::generalType::ITEM:
-            items[itemIndex] = Item(info.st, info.fileName, xpos, ypos, width, height);
+            items[itemIndex] = Item(info.st, info.fileName, xGridPos * TILE_WIDTH, yGridPos * TILE_WIDTH, width, height);
             quadTree.insert(&(items[itemIndex])); // Only items will be in the QuadTree
             entities[entityIndex] = &items[itemIndex++];
+            break;
+        case EntityTypes::generalType::EMPTY:
             break;
         default:
             break;
     }
+    updateWallMatrix(info.st, xGridPos, yGridPos);
     entityIndex++;
 }
 
@@ -57,4 +61,14 @@ void EntityManager::renderEntities() {
         ghosts[i].render();
     }
     pacman.render();
+}
+
+// TODO: Finish this method
+inline void EntityManager::updateWallMatrix(EntityTypes::specificType st, int xGrisPos, int yGridPos) {
+    switch (st) {
+        case EntityTypes::specificType::WALL:
+            wallMatrix[xGrisPos][yGridPos] = true;
+        default:
+            break;
+    }
 }

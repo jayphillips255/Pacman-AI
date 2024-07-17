@@ -3,9 +3,13 @@
 #include "Entity.h"
 #include "Agent.h"
 
+/*
+NOTE: There is a problem with collision detection for lower capacities.
+      Before lowering the max capacity for a more efficent quadtree, the collision detection must be adressed.
+      The problem is likely the insertion of entities.
+*/
 
-
-constexpr int MAX_CAPACITY = 50;
+constexpr int MAX_CAPACITY = 75;
 constexpr int n = 4; // Number of vertices of a rectangle
 
 class QuadTree {
@@ -20,7 +24,6 @@ class QuadTree {
     private:
         void subdivide();
         std::vector<Entity*> entities;
-        int capacity;
         bool divided;
         float x;
         float y;

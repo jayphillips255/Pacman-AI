@@ -5,16 +5,12 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event; // For updating the game state
-int Game::error;
-float Game::tileWidth;
+int Game::error = 0;
 
-Game::Game(const char* title, const float tw, int w, int h, bool fullscreen) {
-    error = 0;
-    tileWidth = tw;
-    width = w;
-    height = h;
-    entityManager = EntityManager(float(w * tw), float(h * tw));
-    startSDL(title, tw, w, h, fullscreen);
+Game::Game(const char* title, int width, int height, float tileWidth, bool fullscreen) {
+    this->tileWidth = tileWidth;
+    entityManager = EntityManager(float(width), float(height));
+    startSDL(title, width, height, fullscreen);
     loadMap("assets/board.txt");
 }
 
@@ -25,20 +21,20 @@ Game::~Game() {
     std::cout << "Game cleaned" << std::endl;
 }
 
-inline void Game::startSDL(const char* title, const int tw, int w, int h, bool fullscreen) {
+inline void Game::startSDL(const char* title, int width, int height, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "Subsystems Initialized!..." << std::endl;
-        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w * tw, h * tw, flags);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
         if (window) {
             std::cout << "Window created!" << std::endl;
         }
         renderer = SDL_CreateRenderer(window, -1, 0);
         if (renderer) {
-            SDL_SetRenderDrawColor(renderer, 0,0,0,0);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             std::cout << "Renderer created!" << std::endl;
         }
         isRunning = true;
@@ -70,22 +66,19 @@ bool Game::running() {
 }
 
 void Game::loadMap(const char* mapFile) {
-    float x = 0.0f;
-    float y = 0.0f;
+    int xGridPos = 0, yGridPos = 0;
     std::string line;
     std::ifstream fileBridge(mapFile);
     if (!fileBridge) {
         std::cerr << "Error opening file." << std::endl;
     }
     while (std::getline(fileBridge, line)) {
-        x = 0.0f;
+        xGridPos = 0;
         for (std::size_t i = 0; i < line.size(); i++) {
-            if (line[i] != ' ') {
-                entityManager.addEntity(line[i], x, y, tileWidth, tileWidth);
-            }
-            x += tileWidth;
+            entityManager.addEntity(line[i], xGridPos, yGridPos, tileWidth, tileWidth);
+            xGridPos++;
         }
-        y += tileWidth;
+        yGridPos++;
     }
     fileBridge.close();
 }

@@ -5,9 +5,9 @@
 
 class Game {
     public:
-        Game(const char* title, const float tw, int w, int h, bool fullscreen);
+        Game(const char* title, int width, int height, float tileWidth, bool fullscreen);
         ~Game();
-        inline void startSDL(const char* title, const int tw, int w, int h, bool fullscreen);
+        inline void startSDL(const char* title, int width, int height, bool fullscreen);
         void handleEvents();
         void update();
         void render();
@@ -16,10 +16,8 @@ class Game {
         static SDL_Renderer* renderer;
         static SDL_Event event;
         static int error;
-        static float tileWidth;
     private:
-        int width;
-        int height;
+        float tileWidth;
         bool isRunning;
         SDL_Window* window;
         EntityManager entityManager;

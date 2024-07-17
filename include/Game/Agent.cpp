@@ -1,16 +1,13 @@
 #include <iostream>
+#include "CONSTANTS.h"
 #include "Game.h"
 #include "Agent.h"
 
 
-Agent::Agent() {
-    collisionIndex = 0;
-};
+Agent::Agent() {}
 
 Agent::Agent(EntityTypes::specificType sType, const char* path, float x, float y, float w, float h)
-    : Entity(sType, path, x, y, w, h) {
-        collisionIndex = 0;
-    }
+    : Entity(sType, path, x, y, w, h) {}
 
 Agent::~Agent() {}
 
@@ -30,20 +27,20 @@ void Agent::updateCollisions(Entity* newCollision) {
 void Agent::resolveWallCollision() {
     switch (direction) {
         case Direction::UP:
-            yGridPos = (ypos / Game::tileWidth) + 1;
-            ypos = yGridPos * Game::tileWidth;
+            yGridPos = (ypos / TILE_WIDTH) + 1;
+            ypos = yGridPos * TILE_WIDTH;
             break;
         case Direction::DOWN:
-            yGridPos = (ypos / Game::tileWidth);
-            ypos = yGridPos * Game::tileWidth;
+            yGridPos = (ypos / TILE_WIDTH);
+            ypos = yGridPos * TILE_WIDTH;
             break;
         case Direction::LEFT:
-            xGridPos = (xpos / Game::tileWidth) + 1;
-            xpos = xGridPos * Game::tileWidth;
+            xGridPos = (xpos / TILE_WIDTH) + 1;
+            xpos = xGridPos * TILE_WIDTH;
             break;
         case Direction::RIGHT:
-            xGridPos = (xpos / Game::tileWidth);
-            xpos = xGridPos * Game::tileWidth;
+            xGridPos = (xpos / TILE_WIDTH);
+            xpos = xGridPos * TILE_WIDTH;
             break;
         default:
             break;

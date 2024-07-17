@@ -1,4 +1,5 @@
 #pragma once
+#include "CONSTANTS.h"
 #include "EntityTypes.h"
 #include "Item.h"
 #include "Player.h"
@@ -6,20 +7,17 @@
 #include "QuadTree.h"
 
 
-constexpr int MAX_ENTITIES = 1000;
-constexpr int MAX_ITEMS = 800;
-constexpr int MAX_AGENTS = 5;
-constexpr int MAX_GHOSTS = 4;
-
 class EntityManager {
     public:
         EntityManager();
         EntityManager(float width, float height);
         ~EntityManager();
-        void addEntity(char c, float xpos, float ypos, float width, float height);
+        void addEntity(char c, int xGridPos, int yGridPos, float width, float height);
         void updateEntities();
         void renderEntities();
+        bool wallMatrix[GAME_WIDTH][GAME_HEIGHT];
     private:
+        inline void updateWallMatrix(EntityTypes::specificType st, int xGridPos, int yGridPos);
         float height;
         float width;
         Entity* entities[MAX_ENTITIES];

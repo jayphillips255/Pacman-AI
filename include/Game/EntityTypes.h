@@ -5,10 +5,10 @@
 class EntityTypes {
     public:
         enum class specificType {
-            PACMAN, INKY, PINKY, BLINKY, CLYDE, FOOD, CAPSULE, DOOR, WALL
+            PACMAN, INKY, PINKY, BLINKY, CLYDE, FOOD, CAPSULE, DOOR, WALL, EMPTY
         };
         enum class generalType {
-            PLAYER, GHOST, ITEM
+            PLAYER, GHOST, ITEM, EMPTY
         };
         struct entityInfo {
             const char* fileName;

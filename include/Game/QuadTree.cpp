@@ -3,7 +3,6 @@
 
 
 QuadTree::QuadTree() {
-    capacity = 0;
     divided = false;
     northWest = nullptr;
     northEast = nullptr;
@@ -12,7 +11,6 @@ QuadTree::QuadTree() {
 }
 
 QuadTree::QuadTree(float x, float y, float width, float height) {
-    capacity = 0;
     divided = false;
     this->x = x;
     this->y = y;
@@ -37,9 +35,8 @@ bool QuadTree::insert(Entity* e) {
     if (!intersects(e)) {
         return false;
     }
-    if ((capacity < MAX_CAPACITY) && !divided) {
+    if ((entities.size() < MAX_CAPACITY) && !divided) {
         entities.push_back(e);
-        capacity++;
         return true;
     }
     if (!divided) {
@@ -53,9 +50,9 @@ bool QuadTree::insert(Entity* e) {
 }
 
 bool QuadTree::remove(Entity* e) {
-    for (std::size_t i = 0; i < capacity; i++) {
+    for (std::size_t i = 0; i < entities.size(); i++) {
         if (entities[i] == e) {
-            capacity--;
+            entities.pop_back();
             break;
         }
     }
@@ -67,7 +64,7 @@ bool QuadTree::remove(Entity* e) {
 }
 
 void QuadTree::checkCollisions(Agent* agent) {
-    for (std::size_t i = 0; i < capacity; i++) {
+    for (std::size_t i = 0; i < entities.size(); i++) {
         if (agent->AABB(agent, entities[i])) {
             agent->updateCollisions(entities[i]);
         }
